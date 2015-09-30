@@ -22,11 +22,11 @@ warn $@ if $@;
 exit 1;
 
 sub usage {
-	my $p = &File::Basename::basename($0);
-	print <<USAGE;
+    my $p = &File::Basename::basename($0);
+    print <<USAGE;
   Usage: $0 <system> <command> <options> <arguments>
          $0 <system> help
          $0 help
 USAGE
-	exit 1;
+    exit 1;
 }
