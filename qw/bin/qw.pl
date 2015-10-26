@@ -11,8 +11,9 @@ use QW;
 
 my $qw = QW->new;
 
-$qw->init;
-$qw->parse_cli(@ARGV) && &usage;
+eval { $qw->init('app'=>'QW', 'mode'=>'cli')->parse(@ARGV); };
+warn $@ if $@;
+&usage if $@;
 
 $qw->dump($qw) if $qw->option('debug');
 
