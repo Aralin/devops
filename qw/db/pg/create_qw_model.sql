@@ -6,8 +6,8 @@ CREATE SEQUENCE qw_event_seq;
 -- TABLES
 
 CREATE TABLE qw$app (
-    update_t TIMESTAMP DEFAULT now(),
     name VARCHAR(16),
+    update_t TIMESTAMP DEFAULT now(),
     db_version VARCHAR(32),
     cli_version VARCHAR(32),
     PRIMARY KEY(name,update_t)
@@ -47,3 +47,11 @@ CREATE TABLE qw$json (
     PRIMARY KEY(id, valid_t)
 );
 
+-- OBJECTS
+
+CREATE TABLE qw$test (
+    id INT4 NOT NULL PRIMARY KEY DEFAULT nextval('qw_id_seq'),
+    name VARCHAR(32) NOT NULL,
+    value VARCHAR(128),
+    UNIQUE(name)
+);

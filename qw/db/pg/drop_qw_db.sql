@@ -1,4 +1,3 @@
 -- DROP DATABASE
-\c jk jk
 DROP DATABASE qw;
 

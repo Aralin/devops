@@ -8,16 +8,26 @@ use File::Basename;
 use lib &File::Basename::dirname(&Cwd::realpath($0))."/../perl";
 
 use QW;
+use QW::DB;
 
-my $qw = QW->new;
+my $qw = QW::DB->new;
+
+$qw->hash_controller(
+    'test' => 'QW::Controller::test',
+    'db' => 'QW::Controller::db',
+);
+
+$qw->hash_model(
+    'test' => 'QW::Object::Test',
+);
 
 eval { $qw->init('app'=>'QW', 'mode'=>'cli')->parse(@ARGV); };
 warn $@ if $@;
 &usage if $@;
 
-$qw->dump($qw) if $qw->option('debug');
+#$qw->dump($qw) if $qw->option('debug');
 
-eval { exit $qw->execute; };
+eval { exit $qw->run; };
 warn $@ if $@;
 &usage;
 exit 1;
