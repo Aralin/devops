@@ -1,0 +1,4 @@
+Notes:
+
+- Have to replace "jk jk" with "postgres postgres" or whatever the system database and user are in your installation of postgres.
+- File create_user.sql contains the default password for qw user.

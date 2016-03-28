@@ -6,17 +6,23 @@ sub sql_parse_cli { return ( "quiet|q", "file|f=s" ); }
 sub sql { 
     my $qw = shift;
 
-    my ($username,$password,$host,$port,$dbname) = $qw->dbinfo;
-    
-    my @args = ("/Applications/Postgres.app/Contents/Versions/9.4/bin/psql");
-
-    push @args, ("-h",$host,"-p",$port,"-U",$username,$dbname);
+    my @args = $qw->pg_exec("psql");
     push @args, ("-q") if $qw->option('quiet');
     push @args, ("-f",$qw->option('file')) if $qw->option('file');
 
+    push @args, @_;
+
+    $qw->say( join " ",@args );
     exec(@args);
 
     return 0; 
+}
+
+sub man {
+    my $qw = shift;
+    my $man_path = $qw->pg_base . "/share/man";
+    exec ("man","-M","$man_path",@_);
+    return 0;
 }
 
 sub version {

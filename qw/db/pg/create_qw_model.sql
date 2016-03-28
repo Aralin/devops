@@ -47,11 +47,3 @@ CREATE TABLE qw$json (
     PRIMARY KEY(id, valid_t)
 );
 
--- OBJECTS
-
-CREATE TABLE qw$test (
-    id INT4 NOT NULL PRIMARY KEY DEFAULT nextval('qw_id_seq'),
-    name VARCHAR(32) NOT NULL,
-    value VARCHAR(128),
-    UNIQUE(name)
-);

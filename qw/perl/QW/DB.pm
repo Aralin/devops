@@ -57,6 +57,20 @@ sub dbinfo {
     return split(/[\@:\/]/,$db);
 }
 
+sub pg_base { return "/Applications/Postgres.app/Contents/Versions/9.4" if $^O eq "darwin"; return "/usr"; }
+
+sub pg_exec {
+    my $self = shift;
+    my $exec = shift;
+
+    my $exec_path = $ENV{'QW_PSQL'} || `which $exec` || $self->pg_base."/bin/$exec";
+    chomp $exec_path;
+
+    my ($username,$password,$host,$port,$dbname) = $self->dbinfo;
+    $ENV{'PGPASSWORD'}=$password;
+    return ($exec_path, "-h",$host,"-p",$port,"-U",$username,$dbname);
+}
+
 sub is_connected { return defined $_[0]->dbh; }
 
 sub connect {

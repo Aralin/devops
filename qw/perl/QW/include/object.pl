@@ -8,14 +8,17 @@
 use strict;
 use warnings;
 
+our $class;
+
 sub new {
+    my $package = __PACKAGE__;
+    # Sanity check for reference match
     my $self = shift;
-    my $class = __PACKAGE__;
-
-    $self = bless {}, $class;
-
+    $self = ref($self) || $self;
+    die "Class mismatch in package $package with reference to $self " unless $self eq $package;
+    # Create the object
+    $self = bless {}, $package;
     $self->set(@_);
-
     return $self;
 }
 

@@ -113,8 +113,7 @@ sub warn {
 
 sub error {
     my $self = shift;
-    return unless $self->option('debug');
-    die @_ if $self->mode eq "cli";
+    say STDERR "ERROR:",@_ if $self->mode eq "cli";
 }
 
 sub dump {
